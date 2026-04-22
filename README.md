@@ -5,10 +5,9 @@ A flashcard app for studying Chinese characters, pinyin, and vocabulary. Built w
 ## Features
 
 - **Two study modes**
-  - *Chinese Characters* — shows character, reveal pinyin and English meaning
-  - *Vocabulary* — shows pinyin, reveal character and English meaning
+  - *字 (Chinese Characters)* — shows character, reveal pinyin and English meaning
+  - *词汇 (Vocabulary)* — shows pinyin, reveal character and English meaning
 - **Shuffle deck** — randomize card order
-- **10 default entries** pre-loaded
 
 ## Stack
 

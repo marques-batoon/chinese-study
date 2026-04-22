@@ -18,13 +18,13 @@ export default function App() {
           className={`mode-btn ${mode === "characters" ? "active" : ""}`}
           onClick={() => setMode("characters")}
         >
-          Chinese Characters
+          字
         </button>
         <button
           className={`mode-btn ${mode === "vocabulary" ? "active" : ""}`}
           onClick={() => setMode("vocabulary")}
         >
-          Vocabulary
+          词汇
         </button>
       </div>
 
