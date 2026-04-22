@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function shuffle(arr) {
   const a = [...arr];
@@ -16,6 +16,10 @@ export default function StudyCard({ entries, mode }) {
   const [showCharacter, setShowCharacter] = useState(false);
   const [showEnglish, setShowEnglish] = useState(false);
   const [shuffled, setShuffled] = useState(false);
+  const [showCanvas, setShowCanvas] = useState(false);
+
+  const canvasRef = useRef(null);
+  const isDrawing = useRef(false);
 
   useEffect(() => {
     setDeck([...entries]);
@@ -24,15 +28,36 @@ export default function StudyCard({ entries, mode }) {
     setShuffled(false);
   }, [entries, mode]);
 
+  // Size canvas to its CSS dimensions when shown or window resizes
+  useEffect(() => {
+    if (!showCanvas) return;
+    function sizeCanvas() {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    sizeCanvas();
+    window.addEventListener("resize", sizeCanvas);
+    return () => window.removeEventListener("resize", sizeCanvas);
+  }, [showCanvas]);
+
   function resetReveals() {
     setShowPinyin(false);
     setShowCharacter(false);
     setShowEnglish(false);
   }
 
+  function clearCanvas() {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+  }
+
   function goTo(i) {
     setIndex(i);
     resetReveals();
+    clearCanvas();
   }
 
   function prev() {
@@ -65,10 +90,43 @@ export default function StudyCard({ entries, mode }) {
     resetReveals();
   }
 
+  function getPos(e, canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+  }
+
+  function startDraw(e) {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const pos = getPos(e, canvas);
+    isDrawing.current = true;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+  }
+
+  function draw(e) {
+    if (!isDrawing.current) return;
+    e.preventDefault();
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const pos = getPos(e, canvas);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.strokeStyle = "#93c5fd";
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+  }
+
+  function stopDraw() {
+    isDrawing.current = false;
+  }
+
   if (deck.length === 0) {
     return (
       <div className="empty-state">
-        <p>No entries yet. Add some below!</p>
+        <p>No entries. Add some to defaultData.js</p>
       </div>
     );
   }
@@ -122,6 +180,34 @@ export default function StudyCard({ entries, mode }) {
           </>
         )}
       </div>
+
+      <div className="canvas-controls">
+        <button
+          className={`canvas-toggle-btn ${showCanvas ? "active" : ""}`}
+          onClick={() => setShowCanvas(!showCanvas)}
+        >
+          {showCanvas ? "Hide Practice" : "Practice Writing"}
+        </button>
+        {showCanvas && (
+          <button className="canvas-clear-btn" onClick={clearCanvas}>
+            Clear
+          </button>
+        )}
+      </div>
+
+      {showCanvas && (
+        <canvas
+          ref={canvasRef}
+          className="practice-canvas"
+          onMouseDown={startDraw}
+          onMouseMove={draw}
+          onMouseUp={stopDraw}
+          onMouseLeave={stopDraw}
+          onTouchStart={startDraw}
+          onTouchMove={draw}
+          onTouchEnd={stopDraw}
+        />
+      )}
 
       <div className="nav-controls">
         <button className="nav-btn" onClick={prev}>← Prev</button>
