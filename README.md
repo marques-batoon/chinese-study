@@ -8,6 +8,7 @@ A flashcard app for studying Chinese characters, pinyin, and vocabulary. Built w
   - *字 (Chinese Characters)* — shows character, reveal pinyin and English meaning
   - *词汇 (Vocabulary)* — shows pinyin, reveal character and English meaning
 - **Shuffle deck** — randomize card order
+- **Keyboard shortcuts** — navigate and shuffle without mouse
 
 ## Stack
 
@@ -76,6 +77,14 @@ Save the file and Vite hot-reloads instantly. No server restart needed.
 | Neutral | a e i o u | ma (particle) |
 
 Copy-paste tone marks or use a pinyin input method.
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `←` | Previous card |
+| `→` | Next card |
+| `S` | Toggle shuffle |
 
 ## Scripts
 

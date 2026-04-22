@@ -43,6 +43,16 @@ export default function StudyCard({ entries, mode }) {
     goTo((index + 1) % deck.length);
   }
 
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "s" || e.key === "S") toggleShuffle();
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  });
+
   function toggleShuffle() {
     if (shuffled) {
       setDeck([...entries]);
