@@ -24,7 +24,7 @@ export default function App() {
           className={`mode-btn ${mode === "vocabulary" ? "active" : ""}`}
           onClick={() => setMode("vocabulary")}
         >
-          词汇
+          词汇(cíhuì)
         </button>
       </div>
 
