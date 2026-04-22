@@ -101,6 +101,7 @@ export default function StudyCard({ entries, mode }) {
     const ctx = canvas.getContext("2d");
     const pos = getPos(e, canvas);
     isDrawing.current = true;
+    document.body.style.userSelect = "none";
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
   }
@@ -121,6 +122,7 @@ export default function StudyCard({ entries, mode }) {
 
   function stopDraw() {
     isDrawing.current = false;
+    document.body.style.userSelect = "";
   }
 
   if (deck.length === 0) {
