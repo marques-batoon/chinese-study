@@ -67,6 +67,41 @@ body {
   box-shadow: 0 0 16px rgba(29, 78, 216, 0.4);
 }
 
+/* Search */
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #1a2d4a;
+  background: #0f1a2e;
+  color: #e0f0ff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-bar input:focus {
+  border-color: #3b82f6;
+}
+
+.search-bar input::placeholder {
+  color: #2a4470;
+}
+
+.search-count {
+  position: absolute;
+  right: 12px;
+  font-size: 0.8rem;
+  color: #4477bb;
+  pointer-events: none;
+}
+
 /* Study area */
 .study-area {
   display: flex;

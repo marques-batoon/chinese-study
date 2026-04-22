@@ -3,9 +3,24 @@ import StudyCard from "./components/StudyCard";
 import { defaultEntries } from "./data/defaultData";
 import "./App.css";
 
+function stripTones(str) {
+  return str.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+}
+
 export default function App() {
   const [entries] = useState(defaultEntries);
   const [mode, setMode] = useState("characters");
+  const [query, setQuery] = useState("");
+
+  const q = stripTones(query.trim());
+  const filteredEntries = q
+    ? entries.filter(
+        (e) =>
+          e.character.includes(query.trim()) ||
+          stripTones(e.pinyin).includes(q) ||
+          e.english.toLowerCase().includes(q)
+      )
+    : entries;
 
   return (
     <div className="app">
@@ -28,7 +43,21 @@ export default function App() {
         </button>
       </div>
 
-      <StudyCard entries={entries} mode={mode} />
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search characters, pinyin, or english..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        {query && (
+          <span className="search-count">
+            {filteredEntries.length} / {entries.length}
+          </span>
+        )}
+      </div>
+
+      <StudyCard entries={filteredEntries} mode={mode} />
     </div>
   );
 }
