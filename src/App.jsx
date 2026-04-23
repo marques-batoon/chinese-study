@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StudyCard from "./components/StudyCard";
 import { defaultEntries } from "./data/defaultData";
+import { strokeEntries } from "./data/strokeData";
 import "./App.css";
 
 function stripTones(str) {
@@ -22,6 +23,9 @@ export default function App() {
       )
     : entries;
 
+  const isStrokes = mode === "strokes";
+  const visibleEntries = isStrokes ? strokeEntries : filteredEntries;
+
   return (
     <div className="app">
       <header className="header">
@@ -41,23 +45,31 @@ export default function App() {
         >
           词汇(cíhuì)
         </button>
+        <button
+          className={`mode-btn ${mode === "strokes" ? "active" : ""}`}
+          onClick={() => setMode("strokes")}
+        >
+          笔画 (bǐhuà)
+        </button>
       </div>
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search characters, pinyin, or english..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        {query && (
-          <span className="search-count">
-            {filteredEntries.length} / {entries.length}
-          </span>
-        )}
-      </div>
+      {!isStrokes && (
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search characters, pinyin, or english..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <span className="search-count">
+              {filteredEntries.length} / {entries.length}
+            </span>
+          )}
+        </div>
+      )}
 
-      <StudyCard entries={filteredEntries} mode={mode} />
+      <StudyCard entries={visibleEntries} mode={mode} />
     </div>
   );
 }
