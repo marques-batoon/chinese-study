@@ -102,10 +102,6 @@ export const defaultEntries = [
   { id: 101, character: "岁", pinyin: "suì", english: "year (of age)" },
   { id: 102, character: "今年", pinyin: "jīn nián", english: "this year" },
   { id: 103, character: "多大", pinyin: "duō dà", english: "how old" },
-
-
-
-
-
+  { id: 104, character: "你呢", pinyin: "nǐ ne", english: "and you?" },
   // { id: , character: "", pinyin: "", english: "" },
 ];
