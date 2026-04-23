@@ -229,13 +229,11 @@ body {
   background: #1f1a0a;
 }
 
-/* Stroke glyph: Unicode on desktop, SVG on touch devices */
-.stroke-svg { display: none; }
-.stroke-char { display: inline; }
-
+/* Stroke glyph: load CJK font on touch devices for full Unicode stroke coverage */
 @media (pointer: coarse) {
-  .stroke-char { display: none; }
-  .stroke-svg { display: inline; }
+  .stroke-glyph {
+    font-family: "Noto Sans JP", "Noto Sans SC", "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro", "PingFang SC", sans-serif;
+  }
 }
 
 /* Stroke view toggle */

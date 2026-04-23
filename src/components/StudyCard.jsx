@@ -1,28 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-function StrokeGlyph({ path, stroke }) {
-  return (
-    <>
-      <span className="stroke-char">{stroke}</span>
-      <span className="stroke-svg">
-        <svg
-          viewBox="0 0 100 100"
-          style={{ width: "1em", height: "1em", display: "inline-block", verticalAlign: "middle" }}
-        >
-          <path
-            d={path}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-    </>
-  );
-}
-
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -192,7 +169,7 @@ export default function StudyCard({ entries, mode }) {
             {strokeView === "character" ? (
               <div className="main-display character-display">{card.character}</div>
             ) : (
-              <div className="main-display character-display"><StrokeGlyph path={card.path} stroke={card.stroke} /></div>
+              <div className="main-display character-display stroke-glyph">{card.stroke}</div>
             )}
 
             <div className="reveals">
@@ -213,7 +190,7 @@ export default function StudyCard({ entries, mode }) {
                 onClick={() => setShowStroke(!showStroke)}
               >
                 {strokeView === "character"
-                  ? showStroke ? <StrokeGlyph path={card.path} stroke={card.stroke} /> : "Show Stroke"
+                  ? showStroke ? <span className="stroke-glyph">{card.stroke}</span> : "Show Stroke"
                   : showStroke ? card.character : "Show Character"}
               </button>
             </div>
