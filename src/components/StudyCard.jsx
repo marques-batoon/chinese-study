@@ -15,8 +15,10 @@ export default function StudyCard({ entries, mode }) {
   const [showPinyin, setShowPinyin] = useState(false);
   const [showCharacter, setShowCharacter] = useState(false);
   const [showEnglish, setShowEnglish] = useState(false);
+  const [showStroke, setShowStroke] = useState(false);
   const [shuffled, setShuffled] = useState(false);
   const [showCanvas, setShowCanvas] = useState(false);
+  const [strokeView, setStrokeView] = useState("character");
 
   const canvasRef = useRef(null);
   const isDrawing = useRef(false);
@@ -46,6 +48,7 @@ export default function StudyCard({ entries, mode }) {
     setShowPinyin(false);
     setShowCharacter(false);
     setShowEnglish(false);
+    setShowStroke(false);
   }
 
   function clearCanvas() {
@@ -160,6 +163,48 @@ export default function StudyCard({ entries, mode }) {
                 {showEnglish ? card.english : "Show Meaning"}
               </button>
             </div>
+          </>
+        ) : mode === "strokes" ? (
+          <>
+            {strokeView === "character" ? (
+              <div className="main-display character-display">{card.character}</div>
+            ) : (
+              <div className="main-display character-display">{card.stroke}</div>
+            )}
+
+            <div className="reveals">
+              <button
+                className={`reveal-btn ${showPinyin ? "revealed" : ""}`}
+                onClick={() => setShowPinyin(!showPinyin)}
+              >
+                {showPinyin ? card.pinyin : "Show Pinyin"}
+              </button>
+              <button
+                className={`reveal-btn ${showEnglish ? "revealed" : ""}`}
+                onClick={() => setShowEnglish(!showEnglish)}
+              >
+                {showEnglish ? card.english : "Show English"}
+              </button>
+              <button
+                className={`reveal-btn ${showStroke ? "revealed" : ""}`}
+                onClick={() => setShowStroke(!showStroke)}
+              >
+                {strokeView === "character"
+                  ? showStroke ? card.stroke : "Show Stroke"
+                  : showStroke ? card.character : "Show Character"}
+              </button>
+            </div>
+
+            <button
+              className="stroke-view-btn"
+              onClick={() => {
+                setStrokeView((v) => (v === "character" ? "stroke" : "character"));
+                setShowPinyin(false);
+                setShowStroke(false);
+              }}
+            >
+              {strokeView === "character" ? "Switch to Stroke" : "Switch to Character"}
+            </button>
           </>
         ) : (
           <>
