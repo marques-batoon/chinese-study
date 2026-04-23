@@ -3,7 +3,7 @@ export const defaultEntries = [
   { id: 2, character: "谢谢", pinyin: "xiè xie", english: "thank you" },
   { id: 3, character: "再见", pinyin: "zài jiàn", english: "goodbye" },
   { id: 4, character: "水", pinyin: "shuǐ", english: "water" },
-  { id: 5, character: "口", pinyin: "kǒu", english: "mouth" },
+  { id: 5, character: "口", pinyin: "kǒu", english: "mouth; measure word for members of family" },
   { id: 6, character: "人", pinyin: "rén", english: "person / people" },
   { id: 7, character: "大", pinyin: "dà", english: "big / large" },
   { id: 8, character: "小", pinyin: "xiǎo", english: "small / little" },
@@ -82,5 +82,30 @@ export const defaultEntries = [
   { id: 81, character: "朋友", pinyin: "péngyǒu", english: "friend" },
   { id: 82, character: "很多", pinyin: "hěn duō", english: "many" },
   { id: 83, character: "色", pinyin: "sè", english: "color" },
+  { id: 84, character: "包", pinyin: "bāo", english: "bag" },
+  { id: 85, character: "猫", pinyin: "māo", english: "cat" },
+  { id: 86, character: "狗", pinyin: "gǒu", english: "dog" },
+  { id: 87, character: "豆子", pinyin: "dòu zi", english: "bean" },
+  { id: 88, character: "黄豆", pinyin: "huáng dòu", english: "soy bean" },
+  { id: 89, character: "牛", pinyin: "niú", english: "cattle" },
+  { id: 90, character: "中文", pinyin: "zhōng wén", english: "Chinese" },
+  { id: 91, character: "同学", pinyin: "tóng xué", english: "classmate" },
+  { id: 92, character: "老公", pinyin: "lǎo gōng", english: "husband" },
+  { id: 93, character: "老婆", pinyin: "lǎo pó", english: "wife" },
+  { id: 94, character: "我的", pinyin: "wǒ de", english: "my/mine" },
+  { id: 95, character: "你的", pinyin: "nǐ de", english: "your/yours" },
+  { id: 96, character: "他/她的", pinyin: "tā de", english: "his/her" },
+  { id: 97, character: "家", pinyin: "jiā", english: "family/home" },
+  { id: 98, character: "有", pinyin: "yǒu", english: "to have" },
+  { id: 99, character: "儿子", pinyin: "ér zi", english: "son" },
+  { id: 100, character: "几", pinyin: "jǐ", english: "how many" },
+  { id: 101, character: "岁", pinyin: "suì", english: "year (of age)" },
+  { id: 102, character: "今年", pinyin: "jīn nián", english: "this year" },
+  { id: 103, character: "多大", pinyin: "duō dà", english: "how old" },
+
+
+
+
+
   // { id: , character: "", pinyin: "", english: "" },
 ];
