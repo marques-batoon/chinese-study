@@ -43,11 +43,18 @@ A flashcard app for studying Chinese characters, pinyin, vocabulary, and stroke 
 
 ### Keyboard Shortcuts
 
-| Key | Action |
-|-----|--------|
-| `←` | Previous card |
-| `→` | Next card |
-| `S` | Toggle shuffle |
+| Key | Action | Available in |
+|-----|--------|-------------|
+| `←` | Previous card | All modes |
+| `→` | Next card | All modes |
+| `P` | Toggle Show Pinyin | 字, 笔画 |
+| `M` | Toggle Show Meaning | 字, 词汇 |
+| `E` | Toggle Show English | 笔画 |
+| `C` | Toggle Show Character | 词汇; 笔画 (stroke view) |
+| `B` | Toggle Show Stroke | 笔画 (character view) |
+| `S` | Toggle shuffle | All modes |
+
+> Keys inactive when search input is focused.
 
 ## Stack
 

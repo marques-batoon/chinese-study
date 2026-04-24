@@ -73,9 +73,24 @@ export default function StudyCard({ entries, mode }) {
 
   useEffect(() => {
     function handleKey(e) {
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-      if (e.key === "s" || e.key === "S") toggleShuffle();
+      if (document.activeElement?.tagName === "INPUT") return;
+      if (e.key === "ArrowLeft") { prev(); return; }
+      if (e.key === "ArrowRight") { next(); return; }
+      const k = e.key.toLowerCase();
+      if (k === "p" && (mode === "characters" || mode === "strokes")) {
+        setShowPinyin(v => !v);
+      } else if (k === "m" && (mode === "characters" || mode === "vocabulary")) {
+        setShowEnglish(v => !v);
+      } else if (k === "e" && mode === "strokes") {
+        setShowEnglish(v => !v);
+      } else if (k === "c") {
+        if (mode === "vocabulary") setShowCharacter(v => !v);
+        else if (mode === "strokes" && strokeView === "stroke") setShowStroke(v => !v);
+      } else if (k === "b" && mode === "strokes" && strokeView === "character") {
+        setShowStroke(v => !v);
+      } else if (k === "s") {
+        toggleShuffle();
+      }
     }
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
