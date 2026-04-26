@@ -77,8 +77,45 @@ src/
 │   └── StudyCard.jsx    # Flashcard display, navigation, shuffle, canvas
 └── data/
     ├── defaultData.js   # 字 / 词汇 entries — edit to add vocabulary
-    └── strokeData.js    # 笔画 entries — edit to add strokes
+    ├── strokeData.js    # 笔画 entries — edit to add strokes
+    └── sections.js      # Section groups — edit to add/modify sections
 ```
+
+## Sections
+
+Sections group entries from `defaultData.js` into subsets selectable via the **Choose Section** button (visible in 字 and 词汇 modes).
+
+All sections live in [src/data/sections.js](src/data/sections.js).
+
+### Schema
+
+```js
+{ id: string, label: string, entryIds: number[] }
+```
+
+- `id` — unique string key
+- `label` — display name shown in the picker
+- `entryIds` — array of `id` values from `defaultData.js`
+
+### Example
+
+```js
+export const sections = [
+  {
+    id: "phrases",
+    label: "Phrases",
+    entryIds: [1, 2, 3, 112, 113, 114],
+  },
+  // Add a new section:
+  {
+    id: "colors",
+    label: "Colors",
+    entryIds: [45, 46, 47, 48],
+  },
+];
+```
+
+Selecting a section restricts the deck to those entries. Search then filters within the active section. Choosing **All** restores the full deck.
 
 ## Adding Vocabulary Entries
 

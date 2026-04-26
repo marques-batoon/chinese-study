@@ -2,6 +2,7 @@ import { useState } from "react";
 import StudyCard from "./components/StudyCard";
 import { defaultEntries } from "./data/defaultData";
 import { strokeEntries } from "./data/strokeData";
+import { sections } from "./data/sections";
 import "./App.css";
 
 function stripTones(str) {
@@ -12,18 +13,25 @@ export default function App() {
   const [entries] = useState(defaultEntries);
   const [mode, setMode] = useState("characters");
   const [query, setQuery] = useState("");
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [showSectionPicker, setShowSectionPicker] = useState(false);
+
+  const isStrokes = mode === "strokes";
+
+  const sectionEntries = selectedSection
+    ? entries.filter((e) => selectedSection.entryIds.includes(e.id))
+    : entries;
 
   const q = stripTones(query.trim());
+
   const filteredEntries = q
-    ? entries.filter(
+    ? sectionEntries.filter(
         (e) =>
           e.character.includes(query.trim()) ||
           stripTones(e.pinyin).includes(q) ||
           e.english.toLowerCase().includes(q)
       )
-    : entries;
-
-  const isStrokes = mode === "strokes";
+    : sectionEntries;
 
   const filteredStrokes = q
     ? strokeEntries.filter(
@@ -35,7 +43,7 @@ export default function App() {
     : strokeEntries;
 
   const visibleEntries = isStrokes ? filteredStrokes : filteredEntries;
-  const activeTotal = isStrokes ? strokeEntries.length : entries.length;
+  const activeTotal = isStrokes ? strokeEntries.length : sectionEntries.length;
   const activeFiltered = isStrokes ? filteredStrokes.length : filteredEntries.length;
 
   return (
@@ -80,6 +88,37 @@ export default function App() {
       </div>
 
       <StudyCard entries={visibleEntries} mode={mode} />
+
+      {!isStrokes && sections.length > 0 && (
+        <div className="section-selector">
+          <button
+            className={`section-toggle-btn ${selectedSection ? "active" : ""}`}
+            onClick={() => setShowSectionPicker(!showSectionPicker)}
+          >
+            {selectedSection ? `Section: ${selectedSection.label}` : "Choose Section"}
+          </button>
+
+          {showSectionPicker && (
+            <div className="section-list">
+              <button
+                className={`section-btn ${!selectedSection ? "active" : ""}`}
+                onClick={() => { setSelectedSection(null); setShowSectionPicker(false); }}
+              >
+                All
+              </button>
+              {sections.map((s) => (
+                <button
+                  key={s.id}
+                  className={`section-btn ${selectedSection?.id === s.id ? "active" : ""}`}
+                  onClick={() => { setSelectedSection(s); setShowSectionPicker(false); }}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
