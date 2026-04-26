@@ -15,12 +15,27 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [selectedSection, setSelectedSection] = useState(null);
   const [showSectionPicker, setShowSectionPicker] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const isStrokes = mode === "strokes";
 
-  const sectionEntries = selectedSection
-    ? entries.filter((e) => selectedSection.entryIds.includes(e.id))
-    : entries;
+  function toggleSelect(id) {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  }
+
+  function deselectAll() {
+    setSelectedIds([]);
+    setSelectedSection(null);
+  }
+
+  const sectionEntries =
+    selectedSection?.id === "selected"
+      ? entries.filter((e) => selectedIds.includes(e.id))
+      : selectedSection
+      ? entries.filter((e) => selectedSection.entryIds.includes(e.id))
+      : entries;
 
   const q = stripTones(query.trim());
 
@@ -87,16 +102,28 @@ export default function App() {
         )}
       </div>
 
-      <StudyCard entries={visibleEntries} mode={mode} />
+      <StudyCard
+        entries={visibleEntries}
+        mode={mode}
+        selectedIds={selectedIds}
+        onToggleSelect={toggleSelect}
+      />
 
-      {!isStrokes && sections.length > 0 && (
+      {!isStrokes && (
         <div className="section-selector">
-          <button
-            className={`section-toggle-btn ${selectedSection ? "active" : ""}`}
-            onClick={() => setShowSectionPicker(!showSectionPicker)}
-          >
-            {selectedSection ? `Section: ${selectedSection.label}` : "Choose Section"}
-          </button>
+          <div className="section-controls">
+            <button
+              className={`section-toggle-btn ${selectedSection ? "active" : ""}`}
+              onClick={() => setShowSectionPicker(!showSectionPicker)}
+            >
+              {selectedSection ? `Section: ${selectedSection.label}` : "Choose Section"}
+            </button>
+            {selectedSection?.id === "selected" && (
+              <button className="deselect-all-btn" onClick={deselectAll}>
+                Deselect All
+              </button>
+            )}
+          </div>
 
           {showSectionPicker && (
             <div className="section-list">
@@ -105,6 +132,12 @@ export default function App() {
                 onClick={() => { setSelectedSection(null); setShowSectionPicker(false); }}
               >
                 All
+              </button>
+              <button
+                className={`section-btn ${selectedSection?.id === "selected" ? "active" : ""}`}
+                onClick={() => { setSelectedSection({ id: "selected", label: "Selected" }); setShowSectionPicker(false); }}
+              >
+                {`Selected${selectedIds.length > 0 ? ` (${selectedIds.length})` : ""}`}
               </button>
               {sections.map((s) => (
                 <button

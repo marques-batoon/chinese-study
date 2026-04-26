@@ -9,7 +9,7 @@ function shuffle(arr) {
   return a;
 }
 
-export default function StudyCard({ entries, mode }) {
+export default function StudyCard({ entries, mode, selectedIds = [], onToggleSelect = () => {} }) {
   const [deck, setDeck] = useState([...entries]);
   const [index, setIndex] = useState(0);
   const [showPinyin, setShowPinyin] = useState(false);
@@ -160,6 +160,12 @@ export default function StudyCard({ entries, mode }) {
       </div>
 
       <div className="card">
+        {mode !== "strokes" && (
+          <button
+            className={`select-card-btn ${selectedIds.includes(card.id) ? "selected" : ""}`}
+            onClick={() => onToggleSelect(card.id)}
+          />
+        )}
         {mode === "characters" ? (
           <>
             <div className="main-display character-display">{card.character}</div>

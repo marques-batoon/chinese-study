@@ -118,6 +118,7 @@ body {
 }
 
 .card {
+  position: relative;
   width: 100%;
   background: #0f1626;
   border: 1px solid #152540;
@@ -129,6 +130,30 @@ body {
   gap: 28px;
   min-height: 260px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+}
+
+.select-card-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #2a4470;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.select-card-btn:hover {
+  border-color: #60a5fa;
+}
+
+.select-card-btn.selected {
+  background: linear-gradient(135deg, #1d4ed8, #0284c7);
+  border-color: transparent;
+  box-shadow: 0 0 8px rgba(29, 78, 216, 0.5);
 }
 
 .main-display {
@@ -317,6 +342,29 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+
+.section-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.deselect-all-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1.5px solid #1a2d4a;
+  background: #0f1a2e;
+  color: #7090b0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deselect-all-btn:hover {
+  border-color: #f87171;
+  color: #f87171;
 }
 
 .section-toggle-btn {

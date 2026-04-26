@@ -24,9 +24,16 @@ A flashcard app for studying Chinese characters, pinyin, vocabulary, and stroke 
 
 ### Search
 
-- Available in 字 and 词汇 modes
+- Available in all modes
 - Searches character, pinyin (tone marks optional — "ni" matches "nǐ"), and English
 - Result count shown while query is active
+
+### Card Selection & Selected Section
+
+- Small circle button in the **top-left corner of every card** (字 and 词汇 modes) — tap to select, tap again to deselect
+- Selected cards accumulate in the **Selected** section, accessible from **Choose Section**
+- The picker shows `Selected (n)` with the live count
+- While viewing the Selected section, a **Deselect All** button appears next to Choose Section — clears all selections and returns to All
 
 ### Navigation & Shuffle
 
@@ -116,6 +123,8 @@ export const sections = [
 ```
 
 Selecting a section restricts the deck to those entries. Search then filters within the active section. Choosing **All** restores the full deck.
+
+The **Selected** section is built-in and dynamic — it always reflects whichever cards the user has toggled via the circle button. It does not live in `sections.js`.
 
 ## Adding Vocabulary Entries
 
