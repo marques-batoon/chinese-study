@@ -111,6 +111,12 @@ body {
   user-select: none;
 }
 
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .progress {
   font-size: 0.85rem;
   color: #4477bb;
@@ -118,7 +124,6 @@ body {
 }
 
 .card {
-  position: relative;
   width: 100%;
   background: #0f1626;
   border: 1px solid #152540;
@@ -133,17 +138,15 @@ body {
 }
 
 .select-card-btn {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2px solid #2a4470;
   background: transparent;
   cursor: pointer;
   transition: all 0.2s;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .select-card-btn:hover {

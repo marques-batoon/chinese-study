@@ -157,17 +157,19 @@ export default function StudyCard({ entries, mode, selectedIds = [], onToggleSel
 
   return (
     <div className="study-area">
-      <div className="progress">
-        {index + 1} / {deck.length}
-      </div>
-
-      <div className="card">
+      <div className="progress-row">
+        <div className="progress">
+          {index + 1} / {deck.length}
+        </div>
         {mode !== "strokes" && (
           <button
             className={`select-card-btn ${selectedIds.includes(card.id) ? "selected" : ""}`}
             onClick={() => onToggleSelect(card.id)}
           />
         )}
+      </div>
+
+      <div className="card">
         {mode === "characters" ? (
           <>
             <div className="main-display character-display">{card.character}</div>
