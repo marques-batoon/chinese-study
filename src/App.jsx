@@ -24,7 +24,19 @@ export default function App() {
     : entries;
 
   const isStrokes = mode === "strokes";
-  const visibleEntries = isStrokes ? strokeEntries : filteredEntries;
+
+  const filteredStrokes = q
+    ? strokeEntries.filter(
+        (e) =>
+          e.character.includes(query.trim()) ||
+          stripTones(e.pinyin).includes(q) ||
+          e.english.toLowerCase().includes(q)
+      )
+    : strokeEntries;
+
+  const visibleEntries = isStrokes ? filteredStrokes : filteredEntries;
+  const activeTotal = isStrokes ? strokeEntries.length : entries.length;
+  const activeFiltered = isStrokes ? filteredStrokes.length : filteredEntries.length;
 
   return (
     <div className="app">
@@ -53,21 +65,19 @@ export default function App() {
         </button>
       </div>
 
-      {!isStrokes && (
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search characters, pinyin, or english..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          {query && (
-            <span className="search-count">
-              {filteredEntries.length} / {entries.length}
-            </span>
-          )}
-        </div>
-      )}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search characters, pinyin, or english..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        {query && (
+          <span className="search-count">
+            {activeFiltered} / {activeTotal}
+          </span>
+        )}
+      </div>
 
       <StudyCard entries={visibleEntries} mode={mode} />
     </div>
