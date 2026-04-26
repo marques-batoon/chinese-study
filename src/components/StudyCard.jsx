@@ -90,6 +90,8 @@ export default function StudyCard({ entries, mode, selectedIds = [], onToggleSel
         setShowStroke(v => !v);
       } else if (k === "s") {
         toggleShuffle();
+      } else if (k === "t" && mode !== "strokes") {
+        onToggleSelect(card.id);
       }
     }
     window.addEventListener("keydown", handleKey);

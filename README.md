@@ -60,6 +60,7 @@ A flashcard app for studying Chinese characters, pinyin, vocabulary, and stroke 
 | `C` | Toggle Show Character | 词汇; 笔画 (stroke view) |
 | `B` | Toggle Show Stroke | 笔画 (character view) |
 | `S` | Toggle shuffle | All modes |
+| `T` | Toggle select current card | 字, 词汇 |
 
 > Keys inactive when search input is focused.
 
